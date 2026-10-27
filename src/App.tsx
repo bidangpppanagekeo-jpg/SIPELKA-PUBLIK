@@ -10,6 +10,7 @@ import { RingkasanView } from './components/RingkasanView';
 import { SopJaringanView } from './components/SopJaringanView';
 import { DataSyncModal } from './components/DataSyncModal';
 import { PrintableSummary } from './components/PrintableSummary';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { Footer } from './components/Footer';
 import {
   SipelkaRawRecord,
@@ -110,10 +111,10 @@ export default function App() {
       {/* Privacy Notice Banner */}
       <PrivacyBanner />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 print:p-0">
+      {/* Main Content Area (Extra padding at bottom on mobile for BottomNav) */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 pb-24 md:pb-8 print:p-0">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-24 space-y-3">
+          <div className="flex flex-col items-center justify-center py-20 space-y-3">
             <div className="w-8 h-8 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
             <p className="text-xs font-medium text-slate-500">Memuat data SIPELKA Nagekeo...</p>
           </div>
@@ -145,8 +146,18 @@ export default function App() {
         })}
       />
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer with extra bottom padding for mobile navigation bar */}
+      <div className="pb-16 md:pb-0">
+        <Footer />
+      </div>
+
+      {/* Dedicated Bottom Navigation Bar for Android & iPhone */}
+      <MobileBottomNav
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenSync={() => setIsSyncModalOpen(true)}
+        totalKasus={ringkasan.totalKasus}
+      />
 
       {/* Data Synchronization & CSV Upload Modal */}
       <DataSyncModal
