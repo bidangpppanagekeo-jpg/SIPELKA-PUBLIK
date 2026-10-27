@@ -337,7 +337,7 @@ export const SopJaringanView: React.FC = () => {
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
               Anda tidak sendirian. Formulir ini terhubung langsung secara tertutup dengan Pekerja Sosial (Peksos)
-              dan Tim UPTD PPA Dinas Sosial P3A Kabupaten Nagekeo. Identitas Anda dijamin kerahasiaannya.
+              dan Tim UPTD PPA Dinas PMDP3A Kabupaten Nagekeo. Identitas Anda dijamin kerahasiaannya.
             </p>
           </div>
 

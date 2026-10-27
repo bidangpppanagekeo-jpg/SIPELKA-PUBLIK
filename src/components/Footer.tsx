@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
 
             <p className="text-xs text-slate-400 leading-relaxed max-w-lg">
               Portal publik resmi penanganan kekerasan berbasis gender dan kekerasan terhadap anak
-              Dinas Sosial Pemberdayaan Perempuan dan Perlindungan Anak (Dinsos P3A) Kabupaten Nagekeo.
+              Dinas PMDP3A (Pemberdayaan Masyarakat dan Desa, Pemberdayaan Perempuan dan Perlindungan Anak) Kabupaten Nagekeo.
               Menyajikan Ringkasan Data Statistik dan Standar Operasional Prosedur (SOP) & Jaringan Layanan.
             </p>
 
@@ -88,7 +88,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-3">
-          <p>© {new Date().getFullYear()} Pemerintah Kabupaten Nagekeo · Bidang PPPA Dinsos P3A.</p>
+          <p>© {new Date().getFullYear()} Pemerintah Kabupaten Nagekeo · Bidang PPPA Dinas PMDP3A.</p>
           <div className="flex items-center gap-4">
             <span>Privasi Terjaga</span>
             <span aria-hidden="true">·</span>

@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
                   PEMERINTAH KABUPATEN NAGEKEO
                 </span>
                 <span className="text-slate-500 text-xs hidden sm:inline">·</span>
-                <span className="text-xs text-slate-300 hidden sm:inline">Dinas Sosial P3A</span>
+                <span className="text-xs text-slate-300 hidden sm:inline">Dinas PMDP3A</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
                 SIPELKA PUBLIK
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </h1>
               <p className="text-xs text-slate-400">
-                Sistem Informasi Perlindungan Perempuan & Anak · Ringkasan Eksekutif & SOP Jejaring
+                Sistem Informasi Perlindungan Perempuan & Anak · Bidang PPPA Dinas PMDP3A
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <a
-              href="https://wa.me/6281239288722?text=Halo%20Bidang%20PPPA%20Dinsos%20P3A%20Kabupaten%20Nagekeo,%20saya%20membutuhkan%20informasi%20layanan%20pengaduan%20kekerasan"
+              href="https://wa.me/6281239288722?text=Halo%20Bidang%20PPPA%20Dinas%20PMDP3A%20Kabupaten%20Nagekeo,%20saya%20membutuhkan%20informasi%20layanan%20pengaduan%20kekerasan"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg shadow-sm transition-colors"

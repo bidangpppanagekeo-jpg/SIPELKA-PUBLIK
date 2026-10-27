@@ -28,7 +28,7 @@ export const PrivacyBanner: React.FC = () => {
           <span aria-hidden="true" className="text-slate-300">·</span>
           <div className="flex items-center gap-1.5 text-slate-700">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Resmi Dinsos P3A Nagekeo</span>
+            <span>Resmi Dinas PMDP3A Nagekeo</span>
           </div>
         </div>
       </div>

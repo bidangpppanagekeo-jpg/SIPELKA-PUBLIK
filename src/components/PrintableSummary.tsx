@@ -20,8 +20,11 @@ export const PrintableSummary: React.FC<PrintableSummaryProps> = ({
           PEMERINTAH KABUPATEN NAGEKEO
         </h3>
         <h2 className="text-lg uppercase tracking-wide font-black">
-          DINAS SOSIAL PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK
+          DINAS PMDP3A
         </h2>
+        <p className="text-[11px] font-semibold text-gray-800 uppercase tracking-wider">
+          (Dinas Pemberdayaan Masyarakat dan Desa, Pemberdayaan Perempuan dan Perlindungan Anak)
+        </p>
         <p className="text-xs italic text-gray-700 mt-0.5">
           Kompleks Civic Center Mbay, Kelurahan Lape, Kecamatan Aesesa, Kabupaten Nagekeo, Nusa Tenggara Timur
         </p>
@@ -121,7 +124,7 @@ export const PrintableSummary: React.FC<PrintableSummaryProps> = ({
       <div className="pt-8 grid grid-cols-2 text-xs">
         <div>
           <p>Mengetahui,</p>
-          <p className="font-bold">Kepala Dinas Sosial P3A Kabupaten Nagekeo</p>
+          <p className="font-bold">Kepala Dinas PMDP3A Kabupaten Nagekeo</p>
           <div className="h-16"></div>
           <p className="font-bold underline">___________________________</p>
           <p>NIP. .....................................................</p>

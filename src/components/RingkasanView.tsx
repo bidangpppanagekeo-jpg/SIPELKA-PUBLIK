@@ -477,7 +477,7 @@ export const RingkasanView: React.FC<RingkasanViewProps> = ({
               <span aria-hidden="true">·</span>
               <span>UU No. 35/2014 (Perlindungan Anak)</span>
               <span aria-hidden="true">·</span>
-              <span>Dinas Sosial P3A Kabupaten Nagekeo</span>
+              <span>Dinas PMDP3A Kabupaten Nagekeo</span>
             </div>
           </div>
         </div>

@@ -83,7 +83,7 @@ export const SOP_TERPADU_STEPS: SopStep[] = [
     deskripsi:
       'Pemulihan fungsi sosial korban di tengah keluarga dan komunitas, pendampingan keberlanjutan sekolah bagi anak korban kekerasan, advokasi identitas kependudukan, serta pemberian pelatihan pemberdayaan ekonomi perempuan mandiri.',
     estimasiWaktu: 'Tahap Jangka Panjang (1 - 6 Bulan)',
-    penanggungJawab: 'Bidang PPPA Dinsos P3A, Dinas Pendidikan & Tokoh Masyarakat',
+    penanggungJawab: 'Bidang PPPA Dinas PMDP3A, Dinas Pendidikan & Tokoh Masyarakat',
     outputLayanan: 'Surat Keterangan Selesai Penanganan & Dokumen Reintegrasi',
     hakKorban: [
       'Hak bebas dari stigma dan diskriminasi di lingkungan sosial/sekolah',
@@ -95,8 +95,8 @@ export const SOP_TERPADU_STEPS: SopStep[] = [
 
 export const MITRA_JARINGAN_NAGEKEO: MitraJaringan[] = [
   {
-    id: 'dinsos-p3a-nagekeo',
-    namaInstansi: 'Bidang PPPA & UPTD PPA Dinsos P3A Kabupaten Nagekeo',
+    id: 'dinas-pmdp3a-nagekeo',
+    namaInstansi: 'Bidang PPPA & UPTD PPA Dinas PMDP3A Kabupaten Nagekeo',
     kategori: 'Pemerintah & UPTD',
     peran: 'Koordinator Penanganan Kasus, Layanan Pengaduan 24 Jam, Penjangkauan & Manajemen Kasus Terpadu',
     alamat: 'Kompleks Civic Center Mbay, Kel. Lape, Kec. Aesesa, Kab. Nagekeo, Nusa Tenggara Timur',
