@@ -1,22 +1,28 @@
 import React from 'react';
-import { Shield, PhoneCall, RefreshCw, Printer } from 'lucide-react';
+import { Shield, PhoneCall, RefreshCw, Printer, Check, Settings2 } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: 'ringkasan' | 'sop_jaringan';
   setActiveTab: (tab: 'ringkasan' | 'sop_jaringan') => void;
-  onOpenSync: () => void;
+  onQuickSync: () => void;
+  onOpenSyncSettings: () => void;
   onPrint: () => void;
   totalKasus: number;
   lastUpdated: string;
+  isSyncing: boolean;
+  syncSuccessAnim: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
-  onOpenSync,
+  onQuickSync,
+  onOpenSyncSettings,
   onPrint,
   totalKasus,
   lastUpdated,
+  isSyncing,
+  syncSuccessAnim,
 }) => {
   return (
     <header className="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md print:static print:bg-white print:text-black print:border-b-2 print:border-black">
@@ -71,16 +77,49 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Action buttons (optimized for touch on Android & iPhone) */}
+          {/* Action buttons (optimized for 1-click automatic sync) */}
           <div className="flex items-center gap-1.5 sm:gap-2 print:hidden overflow-x-auto no-scrollbar pt-1 sm:pt-0">
-            <button
-              onClick={onOpenSync}
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 rounded-lg border border-slate-700 transition-colors whitespace-nowrap min-h-[36px]"
-              title="Perbarui atau unggah file CSV SIPELKA terbaru"
-            >
-              <RefreshCw className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-              <span>Sinkronisasi Data</span>
-            </button>
+            {/* 1-Click Instant Sync Button */}
+            <div className="inline-flex items-center rounded-lg bg-slate-800 border border-slate-700 p-0.5 shadow-xs">
+              <button
+                onClick={onQuickSync}
+                disabled={isSyncing}
+                className={`inline-flex items-center gap-1 sm:gap-1.5 px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-md transition-all whitespace-nowrap min-h-[36px] ${
+                  syncSuccessAnim
+                    ? 'bg-emerald-600 text-white'
+                    : isSyncing
+                    ? 'bg-slate-700 text-slate-300'
+                    : 'text-slate-200 hover:text-white hover:bg-slate-700 active:bg-slate-600'
+                }`}
+                title="Klik untuk langsung mensinkronkan data Google Sheet/SIPELKA secara otomatis"
+              >
+                {syncSuccessAnim ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>Tersinkron!</span>
+                  </>
+                ) : isSyncing ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
+                    <span>Menyinkronkan...</span>
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                    <span>Sinkronisasi Data</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={onOpenSyncSettings}
+                className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-md transition-colors"
+                title="Pengaturan URL Google Sheet & Unggah File"
+                aria-label="Pengaturan Sinkronisasi"
+              >
+                <Settings2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
 
             <button
               onClick={onPrint}
@@ -103,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Tab Navigation - Full responsive with horizontal scroll and safe touch targets */}
+        {/* Tab Navigation */}
         <div className="mt-3 sm:mt-5 border-t border-slate-800 pt-2.5 sm:pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 print:hidden">
           <nav className="flex space-x-1.5 sm:space-x-2 overflow-x-auto no-scrollbar w-full sm:w-auto" aria-label="Tabs Navigasi">
             <button
@@ -136,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
 
           <div className="text-[10px] sm:text-xs text-slate-400 flex items-center gap-1.5 sm:gap-2 self-start sm:self-auto">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
             <span>Update: {lastUpdated}</span>
           </div>
         </div>

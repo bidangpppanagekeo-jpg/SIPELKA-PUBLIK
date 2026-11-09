@@ -382,10 +382,100 @@ export function parseSipelkaCSV(csvText: string): SipelkaRawRecord[] {
   return records;
 }
 
+export const STORAGE_KEY_GSHEET_URL = 'sipelka_gsheet_url';
+export const STORAGE_KEY_GSHEET_AUTOSYNC = 'sipelka_gsheet_autosync';
+export const STORAGE_KEY_GSHEET_INTERVAL = 'sipelka_gsheet_interval';
+
+/**
+ * Converts various Google Sheets URLs into direct CSV export URL
+ * Supports:
+ * - https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit#gid={GID}
+ * - https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv
+ * - Direct Sheet ID
+ */
+export function convertToGoogleSheetCsvUrl(rawUrl: string): string {
+  if (!rawUrl || typeof rawUrl !== 'string') return '';
+  const trimmed = rawUrl.trim();
+
+  // If already a direct csv export link
+  if (trimmed.includes('/export?format=csv') || trimmed.includes('/pub?output=csv')) {
+    return trimmed;
+  }
+
+  // Match /spreadsheets/d/{ID}
+  const matchId = trimmed.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+  if (matchId && matchId[1]) {
+    const sheetId = matchId[1];
+    // Check if gid is present
+    const gidMatch = trimmed.match(/[#&?]gid=([0-9]+)/);
+    const gid = gidMatch ? gidMatch[1] : '0';
+    return `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
+  }
+
+  // If user only provided raw Sheet ID
+  if (/^[a-zA-Z0-9-_]{20,}$/.test(trimmed)) {
+    return `https://docs.google.com/spreadsheets/d/${trimmed}/export?format=csv&gid=0`;
+  }
+
+  return trimmed;
+}
+
+/**
+ * Fetches and parses CSV data directly from Google Sheets
+ */
+export async function fetchGoogleSheetData(rawUrl: string): Promise<{ records: SipelkaRawRecord[]; count: number }> {
+  const csvUrl = convertToGoogleSheetCsvUrl(rawUrl);
+  if (!csvUrl) {
+    throw new Error('URL Google Sheet tidak valid.');
+  }
+
+  // Fetch with cache-busting timestamp so updates reflect immediately
+  const separator = csvUrl.includes('?') ? '&' : '?';
+  const fetchUrl = `${csvUrl}${separator}_t=${Date.now()}`;
+
+  const response = await fetch(fetchUrl);
+  if (!response.ok) {
+    throw new Error(
+      `Gagal mengakses Google Sheet (HTTP ${response.status}). Pastikan spreadsheet telah diatur akses 'Siapa saja yang memiliki link dapat melihat' (Anyone with the link can view).`
+    );
+  }
+
+  const text = await response.text();
+  if (text.includes('<!DOCTYPE html') || text.includes('<html')) {
+    throw new Error(
+      'Google Sheet memerlukan izin akses publik. Silakan buka menu Share di Google Sheets lalu ubah "General access" menjadi "Anyone with the link" (Siapa saja yang memiliki link).'
+    );
+  }
+
+  const parsed = parseSipelkaCSV(text);
+  if (parsed.length === 0) {
+    throw new Error('Tidak ditemukan baris data yang valid pada Google Sheet tersebut.');
+  }
+
+  return { records: parsed, count: parsed.length };
+}
+
 /**
  * Loads the current SIPELKA file from the public directory
  */
 export async function loadDefaultSipelkaDataset(): Promise<SipelkaRawRecord[]> {
+  // Check if user has saved a Google Sheet URL in localStorage
+  try {
+    const savedSheetUrl = localStorage.getItem(STORAGE_KEY_GSHEET_URL);
+    if (savedSheetUrl) {
+      try {
+        const { records } = await fetchGoogleSheetData(savedSheetUrl);
+        if (records.length > 0) {
+          return records;
+        }
+      } catch (err) {
+        console.warn('Gagal memuat Google Sheet tersimpan, beralih ke file lokal:', err);
+      }
+    }
+  } catch {
+    // localStorage not accessible
+  }
+
   try {
     const res = await fetch(SIPELKA_FILE_PATH);
     if (!res.ok) {
