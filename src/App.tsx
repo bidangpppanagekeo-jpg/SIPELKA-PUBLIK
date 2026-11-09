@@ -23,12 +23,11 @@ import {
   STORAGE_KEY_GSHEET_URL,
   STORAGE_KEY_GSHEET_AUTOSYNC,
   STORAGE_KEY_GSHEET_INTERVAL,
-  BASELINE_SIPELKA_DATA,
 } from './data/sipelkaParser';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'sop_jaringan'>('ringkasan');
-  const [records, setRecords] = useState<SipelkaRawRecord[]>(BASELINE_SIPELKA_DATA);
+  const [records, setRecords] = useState<SipelkaRawRecord[]>([]);
   const [datasetName, setDatasetName] = useState<string>('Data SIPELKA Kabupaten Nagekeo');
   const [lastUpdated, setLastUpdated] = useState<string>('27 Okt 2026, 12:17 WITA');
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
